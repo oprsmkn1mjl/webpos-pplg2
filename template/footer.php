@@ -17,8 +17,7 @@
 
 <!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
-<script src="<?= $main_url; ?>assets/AdminLTE/plugins/jquery/jquery.min.js"></script>
+
 <!-- Bootstrap -->
 <script src="<?= $main_url; ?>assets/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE -->
@@ -29,6 +28,7 @@
 <script src="<?= $main_url; ?>assets/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= $main_url; ?>assets/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="<?= $main_url; ?>assets/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
 
 <script>
     $(function() {

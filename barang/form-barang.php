@@ -54,12 +54,12 @@ if (isset($_POST['simpan'])) {
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-
+            <?php if ($alert != '') {
+                echo $alert;
+            } ?>
             <div class="card">
                 <form action="" method="post" enctype="multipart/form-data">
-                    <?php if ($alert != '') {
-                        echo $alert;
-                    } ?>
+
                     <div class="card-header">
                         <h3 class="card-title"><i class="fas fa-plus fa-sm"></i> Add Barang</h3>
                         <button type="submit" name="simpan" class="btn btn-primary btn-sm float-right"><i
@@ -78,7 +78,7 @@ if (isset($_POST['simpan'])) {
                                 </div>
                                 <div class="form-group">
                                     <label for="barcode">Barcode *</label>
-                                    <input type="text" name="barcoe" id="barcode" class="form-control"
+                                    <input type="text" name="barcode" id="barcode" class="form-control"
                                         placeholder="Barcode" autofocus autocomplete="off" required>
                                 </div>
                                 <div class="form-group">

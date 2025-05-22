@@ -70,7 +70,7 @@ if (isset($_POST['simpan'])) {
 
               <div class="col-lg-8 mb-3">
                 <div class="form-group">
-                  <label for="name">Nama</label>
+                  <label for="nama">Nama</label>
                   <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukan nama supplier" autofocus autocomplete="off" required>
                 </div>
                 <div class="form-group">

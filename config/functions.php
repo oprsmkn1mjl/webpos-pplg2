@@ -37,12 +37,12 @@ function uploadimg($url = null, $name = null)
     }
 
     if ($name != null) {
-        $namaFileBaru = $name . '-' . $ekstensiGambar;
+        $namaFileBaru = $name . '.' . $ekstensiGambar;
     } else {
         $namaFileBaru = rand(10, 1000) . '-' . $namafile;
     }
 
-    $namaFileBaru = rand(10, 1000) . '-' . $namafile;
+    //$namaFileBaru = rand(10, 1000) . '-' . $namafile;
 
     move_uploaded_file($tmp, '../assets/image/' . $namaFileBaru);
     return $namaFileBaru;
@@ -130,6 +130,16 @@ function menuSupplier()
 function menuCustomer()
 {
     if (userMenu() == 'customer') {
+        $result = 'active';
+    } else {
+        $result = null;
+    }
+    return $result;
+}
+
+function menuBarang()
+{
+    if (userMenu() == 'barang') {
         $result = 'active';
     } else {
         $result = null;

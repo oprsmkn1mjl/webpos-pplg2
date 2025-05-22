@@ -33,36 +33,36 @@
                 </li>
                 <!-- manjemen menu -->
                 <?php if (userLogin()['level'] != 3) { ?>
-                <li class="nav-item <?= menuMaster() ?>">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-folder text-sm"></i>
-                        <p>Master
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= $main_url; ?>supplier/data-supplier.php"
-                                class="nav-link <?= menuSupplier() ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Supplier</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= $main_url; ?>customer/data-customer.php"
-                                class="nav-link <?= menuCustomer() ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Customer</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Barang</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="nav-item <?= menuMaster() ?>">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-folder text-sm"></i>
+                            <p>Master
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= $main_url; ?>supplier/data-supplier.php"
+                                    class="nav-link <?= menuSupplier() ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Supplier</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= $main_url; ?>customer/data-customer.php"
+                                    class="nav-link <?= menuCustomer() ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Customer</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= $main_url ?>barang" class="nav-link <?= menuBarang() ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Barang</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 <?php } ?>
                 <li class="nav-header">TRANSAKSI</li>
                 <li class="nav-item">
@@ -109,22 +109,22 @@
                 </li>
                 <!-- selain level 1 tidak bisa -->
                 <?php if (userLogin()['level'] == 1) { ?>
-                <li class="nav-item <?= menuSetting() ?>">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-cog text-sm"></i>
-                        <p>Pengaturan
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= $main_url ?>user/data-user.php" class="nav-link <?= menuUser() ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Users</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="nav-item <?= menuSetting() ?>">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cog text-sm"></i>
+                            <p>Pengaturan
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= $main_url ?>user/data-user.php" class="nav-link <?= menuUser() ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Users</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 <?php } ?>
             </ul>
         </nav>
