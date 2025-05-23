@@ -15,16 +15,34 @@ require '../template/header.php';
 require '../template/navbar.php';
 require '../template/sidebar.php';
 
+if (isset($_GET['msg'])) {
+    $msg = $_GET['msg'];
+    $id = $_GET['id'];
+    $sqlEdit = "SELECT * FROM tbl_barang WHERE id_barang = '$id'";
+    $barang = getData($sqlEdit)[0];
+} else {
+    $msg = '';
+}
+
 $alert = '';
 
 if (isset($_POST['simpan'])) {
-    if (insert($_POST)) {
-        $alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+
+    if ($msg != '') {
+        if (update($_POST)) {
+            echo "<script>document.location.href = 'index.php?msg=updated';</script>";
+        } else {
+            echo "<script>document.location.href = 'index.php';</script>";
+        }
+    } else {
+        if (insert($_POST)) {
+            $alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">
   <i class="icon fas fa-check"></i> Barang berhasil ditambahkan..
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>';
+        }
     }
 }
 
@@ -43,7 +61,7 @@ if (isset($_POST['simpan'])) {
                         <li class="breadcrumb-item"><a href="<?= $main_url ?>dashboard.php">Home</a></li>
                         <li class="breadcrumb-item"><a href="<?= $main_url ?>barang">Barang
                             </a></li>
-                        <li class="breadcrumb-item active">Add Barang</li>
+                        <li class="breadcrumb-item active"><?= $msg != '' ? 'Edit Barang' : 'Add Barang' ?></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -61,10 +79,10 @@ if (isset($_POST['simpan'])) {
                 <form action="" method="post" enctype="multipart/form-data">
 
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-plus fa-sm"></i> Add Barang</h3>
+                        <h3 class="card-title"><i class="fas fa-plus fa-sm"></i> <?= $msg != '' ? 'Edit Barang' : 'Add Barang' ?></h3>
                         <button type="submit" name="simpan" class="btn btn-primary btn-sm float-right"><i
                                 class="fas fa-save"></i>
-                            Simpan</button>
+                            <?= $msg != '' ? 'Update' : 'Simpan' ?></button>
                         <button type="reset" class="btn btn-danger btn-sm float-right mr-1"><i class="fas fa-times"></i>
                             Reset</button>
                     </div>
@@ -74,47 +92,61 @@ if (isset($_POST['simpan'])) {
                                 <div class="form-group">
                                     <label for="kode">Kode</label>
                                     <input type="text" name="kode" id="kode" class="form-control"
-                                        value="<?= generateId() ?>" readonly>
+                                        value="<?= $msg != '' ? $barang['id_barang'] : generateId() ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="barcode">Barcode *</label>
-                                    <input type="text" name="barcode" id="barcode" class="form-control"
+                                    <input type="text" name="barcode" id="barcode" value="<?= $msg != '' ? $barang['barcode'] : '' ?>" class="form-control"
                                         placeholder="Barcode" autofocus autocomplete="off" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama_barang">Nama Barang *</label>
-                                    <input type="text" name="nama_barang" id="nama_barang" class="form-control"
+                                    <input type="text" name="nama_barang" id="nama_barang" value="<?= $msg != '' ? $barang['nama_barang'] : '' ?>" class="form-control"
                                         placeholder="Nama Barang" autofocus autocomplete="off" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="satuan">Satuan *</label>
                                     <select name="satuan" id="satuan" class="form-control" required>
-                                        <option value="">-- Satuan Barang --</option>
-                                        <option value="piece">piece</option>
-                                        <option value="botol">botol</option>
-                                        <option value="kaleng">kaleng</option>
-                                        <option value="pouch">pouch</option>
+                                        <?php
+                                        if ($msg != '') {
+                                            $satuan = ['piece', 'botol', 'kaleng', 'pouch'];
+                                            foreach ($satuan as $s) {
+                                                if ($barang['satuan'] == $s) { ?>
+                                                    <option value="<?= $s ?>" selected><?= $s ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?= $s ?>"><?= $s ?></option>
+                                            <?php }
+                                            }
+                                        } else { ?>
+                                            <option value="">-- Satuan Barang --</option>
+                                            <option value="piece">piece</option>
+                                            <option value="botol">botol</option>
+                                            <option value="kaleng">kaleng</option>
+                                            <option value="pouch">pouch</option>
+                                        <?php } ?>
+
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="harga_beli">Harga Beli *</label>
-                                    <input type="number" name="harga_beli" id="harga_beli" class="form-control"
+                                    <input type="number" name="harga_beli" id="harga_beli" value="<?= $msg != null ? $barang['harga_beli'] : '' ?>" class="form-control"
                                         placeholder="Rp. 0" autocomplete="off" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="harga_jual">Harga Jual *</label>
-                                    <input type="number" name="harga_jual" id="harga_jual" class="form-control"
+                                    <input type="number" name="harga_jual" id="harga_jual" value="<?= $msg != null ? $barang['harga_jual'] : '' ?>" class="form-control"
                                         placeholder="Rp. 0" autocomplete="off" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="stock_minimal">Stock Minimal *</label>
-                                    <input type="number" name="stock_minimal" id="stock_minimal" class="form-control"
+                                    <input type="number" name="stock_minimal" id="stock_minimal" class="form-control" value="<?= $msg != '' ? $barang['stock_minimal'] : null ?>"
                                         placeholder="0" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="col-lg-4 text-center px-3">
-                                <img src="<?= $main_url ?>assets/image/default-brg.jpeg"
-                                    class="profile-user-img mb-3 mt-4" alt="User">
+                                <input type="hidden" name="oldImg" value="<?= $msg != '' ? $barang['gambar'] : null ?>">
+                                <img src="<?= $main_url ?>assets/image/<?= $msg != '' ? $barang['gambar'] : 'default-brg.jpeg' ?>"
+                                    class="profile-user-img mb-3 mt-4">
                                 <input type="file" name="image" class="form-control">
                                 <span class="text-sm">Type file gambar JPG | PNG | GIF</span><br>
                                 <span class="text-sm">Width = Height</span>
